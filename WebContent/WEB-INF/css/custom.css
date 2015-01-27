@@ -1,0 +1,19 @@
+body { 	
+	padding-top				: 70px;    	
+}
+
+.bordure{
+	border 					: 1px solid red;
+}
+
+.custom-textarea{
+	resize 					: none;
+}
+
+.red{
+	background-color 		: red;
+}
+
+.blue{
+	background-color 		: blue;
+}

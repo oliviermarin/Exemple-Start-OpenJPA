@@ -5,6 +5,10 @@
   xsi:schemaLocation	= "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
   version 				= "3.0" >
 	
+	<!-- Servlet to test account persistence -->
+	
+	<!-- url : http://localhost:8080/z-openjpa-maven-web/addAccount -->
+	
 	<servlet>
     	<servlet-name>addAccount</servlet-name>
     	<servlet-class>com.openjpa.servlet.AccountServlet</servlet-class>
@@ -13,6 +17,44 @@
 	<servlet-mapping>
 		<servlet-name>addAccount</servlet-name>
 		<url-pattern>/addAccount</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Servlet to access to challenge init -->
+	
+	<!-- url : http://localhost:8080/z-openjpa-maven-web/InitChallenge -->
+	
+	<servlet>
+    	<servlet-name>InitChallenge</servlet-name>
+    	<servlet-class>com.openjpa.servlet.InitChallengeServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>InitChallenge</servlet-name>
+		<url-pattern>/InitChallenge</url-pattern>
+	</servlet-mapping>
+	
+	<!-- url : http://localhost:8080/z-openjpa-maven-web/TreatChallenge -->
+	
+	<servlet>
+    	<servlet-name>TreatChallenge</servlet-name>
+    	<servlet-class>com.openjpa.servlet.TreatChallengeServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>TreatChallenge</servlet-name>
+		<url-pattern>/TreatChallenge</url-pattern>
+	</servlet-mapping>
+	
+	<!-- url : http://localhost:8080/z-openjpa-maven-web/TreatChallenge -->
+	
+	<servlet>
+    	<servlet-name>ChallengeManager</servlet-name>
+    	<jsp-file>/test.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ChallengeManager</servlet-name>
+		<url-pattern>/ChallengeManager</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

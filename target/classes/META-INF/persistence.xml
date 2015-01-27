@@ -9,6 +9,9 @@
 		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 		
 		<class>com.openjpa.entities.Account</class>
+		<class>com.openjpa.entities.Challenge</class>
+		<class>com.openjpa.entities.Contact</class>
+		<class>com.openjpa.entities.User</class>
 		
 		<properties>
 		

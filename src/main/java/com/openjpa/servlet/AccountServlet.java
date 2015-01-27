@@ -2,14 +2,14 @@ package com.openjpa.servlet;
 
 import java.io.IOException;
 
-// import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import javax.servlet.*;
+
+import javax.servlet.http.*;
 
 import com.openjpa.dao.AccountDao;
+
 import com.openjpa.entities.Account;
 
 public class AccountServlet extends HttpServlet {
@@ -23,11 +23,49 @@ public class AccountServlet extends HttpServlet {
 			
 			throws ServletException, IOException {
 		
-		Account account = new Account("François");
+		//--------------------
+		// three accounts creation
+		//--------------------
 		
-		// AccountDao accountDao = new AccountDao();
+		Account accountOne 		= new Account("Olivier");
 		
-		accountDao.createNewAccount(account);	
+		Account accountTwo 		= new Account("Vincent");
+		
+		Account accountThree 	= new Account("Claude");
+		
+		//--------------------
+		// Persisting new account
+		//--------------------
+		
+		accountDao.createNewAccount(accountOne);
+		
+		accountDao.createNewAccount(accountTwo);
+		
+		accountDao.createNewAccount(accountThree);
+		
+		//--------------------
+		// getting the first account
+		//--------------------		
+		
+		Account accountFinded = accountDao.getAccountById(1);
+		
+		System.out.println("0001 accountTest INFO [main] AccountTest - account finded : "+accountFinded.toString());
+		
+		accountFinded.setName("Jean");
+		
+		accountDao.updateAccount(accountFinded);
+		
+		//--------------------
+		// remove the third account
+		//--------------------
+		
+		accountFinded = accountDao.getAccountById(2);
+		
+		request.setAttribute("accountFinded", accountFinded);
+		
+		this.getServletContext().getRequestDispatcher( "/WEB-INF/challenge-user.jsp" ).forward( request, response );
+		
+		// accountDao.deleteAccount(accountFinded);
 		
 	}
 	
