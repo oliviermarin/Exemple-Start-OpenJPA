@@ -1,21 +1,17 @@
 package com.openjpa.dao;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.ejb.Stateless;
-
 import javax.persistence.EntityManager;
-
 import javax.persistence.EntityTransaction;
-
 import javax.persistence.TypedQuery;
 
 import com.openjpa.entities.Contact;
-
 import com.openjpa.entities.User;
-
 import com.openjpa.utils.OpenJPAUtils;
 
 @Stateless
@@ -397,20 +393,21 @@ public class UserDao {
 	}
 	
 	public List<User> getAll() throws Exception {
-
+		
 		System.out.println("DEBUT UserDao getAll");
 
 		EntityManager em = OpenJPAUtils.openEntityManager();
 
 		TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
-
+		
 		List<User> result = query.getResultList();
-
+		
 		OpenJPAUtils.closeEntityManager(em);
 
 		System.out.println("FIN UserDao getAll");
 
 		return result;
+		
 	}
 
 	public void delete(User user) throws Exception {

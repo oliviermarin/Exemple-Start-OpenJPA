@@ -17,3 +17,11 @@ body {
 .blue{
 	background-color 		: blue;
 }
+
+.input-custom{
+	color 					: rgba(52, 152, 219,1.0);
+}
+
+.color-blue{
+	background-color: 		: rgb(51, 51, 51);
+}

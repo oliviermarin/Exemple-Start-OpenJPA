@@ -45,16 +45,16 @@
 		<url-pattern>/TreatChallenge</url-pattern>
 	</servlet-mapping>
 	
-	<!-- url : http://localhost:8080/z-openjpa-maven-web/TreatChallenge -->
+	<!-- url : http://localhost:8080/z-openjpa-maven-web/ContactResearch -->
 	
 	<servlet>
-    	<servlet-name>ChallengeManager</servlet-name>
-    	<jsp-file>/test.jsp</jsp-file>
+    	<servlet-name>ContactResearch</servlet-name>
+    	<servlet-class>com.openjpa.servlet.ContactResearch</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
-		<servlet-name>ChallengeManager</servlet-name>
-		<url-pattern>/ChallengeManager</url-pattern>
+		<servlet-name>ContactResearch</servlet-name>
+		<url-pattern>/ContactResearch</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

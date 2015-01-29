@@ -15,6 +15,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
     	
     	<style type="text/css"><%@ include file = "css/bootstrap.css" %></style>
+    	
     	<style type="text/css"><%@ include file = "css/custom.css" %></style>
     		
 	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -83,17 +84,23 @@
 					    <!-- from to create a new challenge -->
 					    
 					    <form action="${pageContext.request.contextPath}/TreatChallenge" method="POST">  
-					    	<div class="input-group">
-						      <input name="contact" type="text" class="form-control" placeholder="Search for a contact...">
+					    	<div class="input-group barRecherche">
+						      <input name="contact" type="text" class="form-control recherche" placeholder="Search for a contact..." />
 						      <span class="input-group-btn">
 						        <button class="btn btn-default" type="button">Search !</button>
 						      </span>
+						    </div><!-- /input-group -->
+						    <div class="input-group">
+						      <input type="hidden" name="contactFinal" type="text" class="form-control contactFinal" placeholder="Search for a contact..." />
+						    </div><!-- /input-group -->
+						    <div class="input-group">
+						      <input type="hidden" name="pseudoUser" type="text" class="form-control" value=<% out.println(userTest.getPseudo()); %> />
 						    </div><!-- /input-group -->
 					    	<br /> 
 						    <div class="form-group">
 							    <textarea name="challenge" class="form-control custom-textarea" placeholder = "Insérer le contenu de votre défit..." ></textarea>
 							</div><!-- /input-group -->
-							<button type="submit" class="btn btn-primary pull-right">Envoyer</button>
+							<button type="submit" class="btn btn-primary pull-right bouton-create-challenge">Envoyer</button>
 						</form>
 						
 						<!-- / from to create a new challenge -->
@@ -282,12 +289,104 @@
 		
     </div>
     <!-- /.container -->
+    
+    <!-- jQuery actual google hosted library -->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
+    <!-- jQuery UI actual google hosted library -->
+    
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+    
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+  	
+  	<script>
+  	
+	$(function() {
+	  	
+	  	var researchInputBoolean = false;
+	  	
+	  	var challengeInputBoolean = false;
+	  	
+	  	$( '.custom-textarea' ).blur( function () {
+	  		
+	  		if( $(this).val() ){
+	  		
+	  			challengeInputBoolean = true;
+	  		
+	  		}
+	  		
+	  		if( researchInputBoolean && challengeInputBoolean ){
+	  		
+	  			$('.bouton-create-challenge').prop( "disabled" , false );	
+	  		
+	  		}
+	  	
+	  	});
+	  	
+	  	$('.bouton-create-challenge').prop( "disabled" , true );
+	  	
+		var dict = [];
 
-    <!-- jQuery Version 1.11.1 -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+		$.ajax({
+		
+		  url 		: 'ContactResearch',
+		  
+		  method 	: 'GET',
+		  
+		  dataType 	: 'json',
+		  
+		  success 	: function ( data ) {
+		  
+		    $.each( data, function () {
+		    
+		    	dict.push(this.toString());
+		      
+		    });
+		    
+		    	return dict;
+		    
+			}
+		  
+		});
+		
+		$( '.form-control.recherche' ).autocomplete({
+		
+			source : dict
+		  
+		}).keydown(function (e) {
+			
+			if(e.keyCode === 13) {
+			
+				if($('.form-control.recherche').val()){
+				
+					$('.contactFinal').val( $('.form-control.recherche').val() );
+					
+					var result = '<span class="input-group-addon color-blue" id="sizing-addon1">'+$( '.form-control.recherche' ).val()+'</span>';
+				
+					$('.barRecherche').prepend(result);
+					
+					$( '.form-control.recherche' ).val('');
+					
+					$('.form-control.recherche').prop('disabled', true);
+					
+					researchInputBoolean = true;
+					
+					if( researchInputBoolean && challengeInputBoolean ){
+	  		
+			  			$('.bouton-create-challenge').prop( "disabled" , false );	
+			  		
+			  		}
+				
+				}
+			
+			}
+		
+		});
+	    
+	});
+	  
+	</script>
 		
 	</body>
 </html>

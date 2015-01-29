@@ -2,18 +2,20 @@ package com.openjpa.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.RequestDispatcher;
 
 import com.openjpa.constant.Constants;
 import com.openjpa.dao.ChallengeDao;
+import com.openjpa.dao.UserDao;
 import com.openjpa.entities.Challenge;
+import com.openjpa.entities.User;
 
 public class TreatChallengeServlet extends HttpServlet {
 
@@ -71,7 +73,7 @@ public class TreatChallengeServlet extends HttpServlet {
 			
 		}
 		
-		ServletContext contextPath = this.getServletContext();
+		// ServletContext contextPath = this.getServletContext();
 		
 		// String reportPath = contextPath.getRealPath("/test.jsp");
 		
@@ -89,15 +91,71 @@ public class TreatChallengeServlet extends HttpServlet {
 	
 			throws ServletException, IOException {
 		
-		String contact = request.getParameter("contact");
-
-		String challenge = request.getParameter("challenge");
+		request.setCharacterEncoding("UTF-8");
 		
-		PrintWriter out = response.getWriter();
+		String contactFinal = request.getParameter("contactFinal");
 		
-		out.println(contact);
+		String challengeName = request.getParameter("challenge");
 		
-		out.println(challenge);		
+		String pseudoUser = request.getParameter("pseudoUser");
+		
+		UserDao userDao = new UserDao();
+		
+		User user = new User();
+		
+		Challenge challenge = new Challenge();
+		
+		User contact = new User();
+		
+		try {
+			
+			user = userDao.findByPseudo(pseudoUser);
+			
+			contact = userDao.findByPseudo(contactFinal);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		challenge.setDescription(challengeName);
+		
+		challenge.setId_user(user.getId());
+		
+		challenge.setId_contact(contact.getId());
+		
+		challenge.setId_winner(null);
+		
+		challenge.setStatut(Constants.CHALLENGE_ON_HOLD);
+		
+		ChallengeDao challengeDao = new ChallengeDao(); 
+		
+		try {
+			
+			challengeDao.create(challenge);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		// PrintWriter out = response.getWriter();
+		
+		// out.println(challengeName);
+		
+		// out.println(challengeNameGood);
+		
+		// out.println(user.toString());
+		
+		// out.println(contact.toString());
+		
+		// out.println(challenge.toString());
+		
+		// ServletContext contextPath = this.getServletContext();
+		
+		response.sendRedirect("InitChallenge");
 						
 	}
 
