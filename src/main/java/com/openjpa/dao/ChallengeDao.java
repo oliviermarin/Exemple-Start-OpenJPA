@@ -60,6 +60,24 @@ public class ChallengeDao {
 		OpenJPAUtils.closeEntityManager(em);
 
 	}
+	
+	public void updateWinner(Challenge challenge, Integer idWinner) throws Exception {
+
+		challenge.setId_winner(idWinner);;
+
+		EntityManager em = OpenJPAUtils.openEntityManager();
+
+		EntityTransaction challengeTransaction = em.getTransaction();
+
+		challengeTransaction.begin();
+
+		em.merge(challenge);
+
+		challengeTransaction.commit();
+
+		OpenJPAUtils.closeEntityManager(em);
+
+	}
 
 	public void updateStatut(Challenge challenge, Integer statut) throws Exception {
 

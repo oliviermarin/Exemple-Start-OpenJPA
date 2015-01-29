@@ -18,9 +18,9 @@
 			<!-- Data base connection -->
 			
 			<property name="openjpa.ConnectionDriverName" 			value= "com.mysql.jdbc.Driver" />
-			<property name="openjpa.ConnectionURL" 					value= "jdbc:mysql://localhost:8889/ikya"/>
+			<property name="openjpa.ConnectionURL" 					value= "jdbc:mysql://localhost/ikya"/>
 			<property name="openjpa.ConnectionUserName" 			value= "root" />
-			<property name="openjpa.ConnectionPassword" 			value= "root" />
+			<property name="openjpa.ConnectionPassword" 			value= "admin" />
 			
 			<!-- other parameters -->
 			

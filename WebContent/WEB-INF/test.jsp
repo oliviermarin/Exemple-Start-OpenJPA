@@ -133,6 +133,7 @@
 												<div class="row">
 													
 													<%
+														System.out.println(Constants.hashMapChallenge.get(challenge.getStatut()));
 														
 														//--------------------
 														// local variable for switch treatment
@@ -147,6 +148,8 @@
 											            Integer challengeIdUser 	= challenge.getId_user();
 											            		
 											            Integer challengeIdContact 	= challenge.getId_contact();
+											            
+											            Integer challengeIdWinner 	= challenge.getId_winner();
 														
 														//--------------------
 														// treatment to show good buttons in current challenge
@@ -164,14 +167,16 @@
 													            			
 													            			<%
 													            					
-													            					String getRequest = "/TreatChallenge?function=choiceChallenge&choice=true&idUser="+idUser+"&idChallenge="+idChallenge;
+													            					String getRequestAccepte = "/TreatChallenge?function=choiceChallenge&choice=true&idUser="+idUser+"&idChallenge="+idChallenge;
+													            					
+													            					String getRequestRefuse = "/TreatChallenge?function=choiceChallenge&choice=false&idUser="+idUser+"&idChallenge="+idChallenge;
 													            			
 													            			%>
 													            		
-																			<a href="${pageContext.request.contextPath}<%= getRequest %>">
+																			<a href="${pageContext.request.contextPath}<%= getRequestAccepte %>">
 																				<button type="button" class="btn btn-success">Accepter</button>
 																			</a>
-																			<a href="#">
+																			<a href="${pageContext.request.contextPath}<%= getRequestRefuse %>">
 																				<button type="button" class="btn btn-danger">Refuser</button>
 																			</a>
 																		</div>
@@ -200,10 +205,26 @@
 											            		if( challengeIdUser.equals(idUser) ){
 											            		
 												            		%>
-												            			
-													            		<div class="col-xs-2 col-xs-offset-5 col-sm-2 col-sm-offset-5 col-md-2 col-md-offset-5 col-lg-2 col-lg-offset-5 ">
-																			<a href="http://www.w3schools.com">
-																				<button type="button" class="btn btn-info">Terminer</button>
+												            			<div class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 text-center">
+													            			
+													            			<%
+													            					
+													            					String getRequestGagne = "/TreatChallenge?function=resultatChallenge&choice=gagne&idUser="+idUser+"&idChallenge="+idChallenge;
+													            					
+													            					String getRequestMatchNul = "/TreatChallenge?function=resultatChallenge&choice=nul&idUser="+idUser+"&idChallenge="+idChallenge;
+													            			
+													            					String getRequestPerdu = "/TreatChallenge?function=resultatChallenge&choice=perdu&idUser="+idUser+"&idChallenge="+idChallenge;
+													            			
+													            			%>
+													            		
+																			<a href="${pageContext.request.contextPath}<%= getRequestGagne %>">
+																				<button type="button" class="btn btn-success">J'ai Gagné</button>
+																			</a>
+																			<a href="${pageContext.request.contextPath}<%= getRequestMatchNul %>">
+																				<button type="button" class="btn btn-info">Match Nul</button>
+																			</a>
+																			<a href="${pageContext.request.contextPath}<%= getRequestPerdu %>">
+																				<button type="button" class="btn btn-danger">J'ai Perdu</button>
 																			</a>
 																		</div>
 														
@@ -232,15 +253,63 @@
 											                     
 											            case 40: 
 											            		
+											            		if( challengeIdWinner.equals(idUser) ){
+											            			
+											            			%>
+												            			
+												            			<br />
+													            		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+																			<div class="alert alert-warning" role="alert">Vous avez gagné !</div>
+																		</div>
+														
+												            		<%
+												            		
+												            		}
+												            		
+												            		else if( challengeIdWinner.equals(-1) ){
+											            			
+											            			%>
+												            			
+												            			<br />
+													            		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+																			<div class="alert alert-warning" role="alert">Match nul !</div>
+																		</div>
+														
+												            		<%
+												            		
+												            		}
+												            		
+												            		else {
+											            			
+											            			%>
+												            			
+												            			<br />
+													            		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+																			<div class="alert alert-warning" role="alert">Vous avez perdu ...</div>
+																		</div>
+														
+												            		<%
+												            		
+												            		}
+											            		
 											            		if( challengeIdContact.equals(idUser) ){
 											            		
 												            		 %>
 											            		
 													            		<div class="col-xs-4 col-xs-offset-4 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4 text-center">
-																			<a href="http://www.w3schools.com">
+													            			
+													            			<%
+													            					
+													            					String getRequestAccepte = "/TreatChallenge?function=validationChallenge&choice=true&idUser="+idUser+"&idChallenge="+idChallenge;
+													            					
+													            					String getRequestRefuse = "/TreatChallenge?function=validationChallenge&choice=false&idUser="+idUser+"&idChallenge="+idChallenge;
+													            			
+													            			%>
+													            		
+																			<a href="${pageContext.request.contextPath}<%= getRequestAccepte %>">
 																				<button type="button" class="btn btn-success">Accepter</button>
 																			</a>
-																			<a href="http://www.w3schools.com">
+																			<a href="${pageContext.request.contextPath}<%= getRequestRefuse %>">
 																				<button type="button" class="btn btn-danger">Refuser</button>
 																			</a>
 																		</div>
@@ -249,8 +318,7 @@
 											            		
 											            		} else {
 											            		
-											            			%>
-												            			
+												            		 %>
 												            			<br />
 													            		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
 																			<div class="alert alert-warning" role="alert">Validation du challenge en cours...</div>
@@ -264,6 +332,46 @@
 
 											            default:
 											            
+											            			if( challengeIdWinner.equals(idUser) ){
+											            			
+											            			%>
+												            			
+												            			<br />
+													            		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+																			<div class="alert alert-warning" role="alert">Challenge terminé, vous avez gagné !</div>
+																		</div>
+														
+												            		<%
+												            		
+												            		}
+												            		
+												            		else if( challengeIdWinner.equals(-1) ){
+											            			
+											            			%>
+												            			
+												            			<br />
+													            		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+																			<div class="alert alert-warning" role="alert">Challenge terminé, match nul !</div>
+																		</div>
+														
+												            		<%
+												            		
+												            		}
+												            		
+												            		else {
+											            			
+											            			%>
+												            			
+												            			<br />
+													            		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+																			<div class="alert alert-warning" role="alert">Challenge terminé, vous avez perdu ...</div>
+																		</div>
+														
+												            		<%
+												            		
+												            		}
+												            		
+												            		
 											                     break;
 											                     
 											        }
